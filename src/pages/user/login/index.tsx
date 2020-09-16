@@ -3,7 +3,7 @@
  * @Author: Moriaty
  * @Date: 2020-09-11 23:36:45
  * @Last modified by: Moriaty
- * @LastEditTime: 2020-09-13 22:21:57
+ * @LastEditTime: 2020-09-16 22:47:59
  */
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -19,6 +19,9 @@ import SpaceBetween from '@/components/space-between';
 import { tabsConfig, accountFormConfig, mobileLoginFormConfig, ILoginParams } from './constants';
 import { IFormItemProps } from '@/components/form-item/constants';
 
+import {
+  accountLogin
+} from './service';
 import styles from './index.less';
 
 function Index() {
@@ -39,12 +42,14 @@ function Index() {
     setFormItemsConfig(newFormConfig);
   }
 
-/**
- * @description: 表单验证成功时提交
- * @param {type} 
- */  
+  /**
+   * @description: 表单验证成功时提交
+   * @param {type} 
+   */
   function onFinish(values: ILoginParams) {
-    console.log(values);
+    accountLogin(values).then(res => {
+      console.log(res);
+    })
   }
   // tabProp start
   const tabsProps = {

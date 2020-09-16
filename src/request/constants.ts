@@ -3,7 +3,7 @@
  * @Author: Moriaty
  * @Date: 2020-09-13 23:09:23
  * @Last modified by: Moriaty
- * @LastEditTime: 2020-09-13 23:37:59
+ * @LastEditTime: 2020-09-16 22:45:23
  */
 import { AxiosRequestConfig, AxiosResponse, AxiosError, } from 'axios';
 import { Modal, message } from 'antd';
@@ -63,7 +63,7 @@ function axiosResponse(responseData: AxiosResponse<IResponseData<any>>) {
       return Promise.reject(new Error(msg));
     default:
       message.error(msg);
-      return Promise.reject(new Error(msg));
+      // return Promise.reject(new Error(msg));
   }
   
 }

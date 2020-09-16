@@ -3,7 +3,7 @@
  * @Author: Moriaty
  * @Date: 2020-09-13 22:44:55
  * @Last modified by: Moriaty
- * @LastEditTime: 2020-09-13 23:39:25
+ * @LastEditTime: 2020-09-16 22:44:45
  */
 import axios, { AxiosRequestConfig } from 'axios';
 import Config from '@/config';
@@ -13,7 +13,7 @@ import { axiosRequest, axiosRError, axiosResponse } from './constants';
 
 // 请求头
 axios.defaults.headers = {
-  'Content-Type': 'applacation/json;charset=utf-8',
+  'Content-Type': 'application/json;charset=utf-8',
 };
 // 请求地址
 axios.defaults.baseURL = Config.API_URL;
