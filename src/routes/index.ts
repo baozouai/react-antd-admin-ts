@@ -3,9 +3,9 @@
  * @Author: Moriaty
  * @Date: 2020-09-10 23:17:34
  * @Last modified by: Moriaty
- * @LastEditTime: 2020-09-12 13:03:10
+ * @LastEditTime: 2020-09-28 14:55:40
  */
-import { lazyImport } from './util';
+import { lazyImport, flattenRoute, formatRoute } from './util';
 
 //  路由信息
 export interface IRouteMeta {
@@ -34,16 +34,17 @@ export interface IRoute extends IRouteBase {
  *  第一层路由为最外层的Layout
  */
 
-export const routes: IRoute[] = [
+export const routes: IRoute[] = formatRoute([
   {
-    path: '/user',
+    path: 'user',
     component: lazyImport(import('@/layouts/user')),
     meta: {
       title: '用户路由',
     },
+    redirect: '/user/login',
     children: [
       {
-        path: '/user/login',
+        path: 'login',
         component: lazyImport(import('@/pages/user/login')),
         meta: {
           title: '登录',
@@ -51,22 +52,85 @@ export const routes: IRoute[] = [
         exact: true,
       },
       {
-        path: '/user/register',
+        path: 'register',
         component: lazyImport(import('@/pages/user/register')),
         meta: {
           title: '注册',
         },
         exact: true,
       },
+    ]
+  },
+  {
+    path: '',
+    component: lazyImport(import('@/layouts/basic')),
+    meta: {
+      title: '系统',
+    },
+    redirect: '/user/login',
+    children: [
       {
-        path: '/user',
-        component: lazyImport(import('@/pages/user/login')),
+        path: 'dashboard',
         meta: {
           title: '登录',
+          icon: 'dashboard',
         },
+        exact: true,
+        redirect: '/dashboard/readme',
+        children: [
+          {
+            path: 'readme',
+            exact: true,
+            component: lazyImport(import('@/pages/dashboard/readme')),
+            meta: {
+              title: '系统介绍',
+              icon: 'readme',
+            }
+          },
+          {
+            path: 'readme1',
+            exact: true,
+            component: lazyImport(import('@/pages/dashboard/readme')),
+            meta: {
+              title: '系统介绍',
+              icon: 'readme',
+            }
+          }
+        ]
+      },
+      {
+        path: 'dashboard1',
+        meta: {
+          title: '登录',
+          icon: 'dashboard',
+        },
+        exact: true,
+        redirect: '/dashboard1/readme',
+        children: [
+          {
+            path: 'readme',
+            exact: true,
+            component: lazyImport(import('@/pages/dashboard/readme')),
+            meta: {
+              title: '系统介绍',
+              icon: 'readme',
+            }
+          },
+          {
+            path: 'readme1',
+            exact: true,
+            component: lazyImport(import('@/pages/dashboard/readme')),
+            meta: {
+              title: '系统介绍',
+              icon: 'readme',
+            }
+          }
+        ]
       },
     ]
   },
-];
+]);
 
-export const userRouteList:IRoute[] = routes.find(route => route.path === '/user')?.children || [];
+export const layoutRouteList: IRoute[] = flattenRoute(routes, false, false);
+export const userRouteList: IRoute[] = flattenRoute([routes.find(route => route.path === '/user')!], true, false, ['/user']);
+export const basicRouteList: IRoute[] = flattenRoute([routes.find(route => route.path === '/')!], true, false, ['/']);

@@ -1,14 +1,27 @@
+/*
+ * @Description: 根路由页面
+ * @Author: Moriaty
+ * @Date: 2020-09-09 20:54:08
+ * @Last modified by: Moriaty
+ * @LastEditTime: 2020-09-28 15:35:02
+ */
 import React, { Suspense } from 'react';
 import { BrowserRouter as Router, } from 'react-router-dom';
-import { Spin } from 'antd';
+
+import PageLoading from '@/components/page-loading';
 import RenderRoute from '@/components/render-route';
-import { routes } from '@/routes';
+
+import { layoutRouteList } from '@/routes';
+
 import Config from '@/config';
+
+
 function App() {
+
   return (
-    <Suspense fallback={<Spin size="large" className="layout__loading" />}>
+    <Suspense fallback={<PageLoading />}>
       <Router basename={Config.BASE_NAME}>
-        <RenderRoute routes={routes} />
+        <RenderRoute routes={layoutRouteList} />
       </Router>
     </Suspense>
 
